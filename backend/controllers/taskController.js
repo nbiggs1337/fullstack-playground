@@ -23,4 +23,19 @@ const getTasks = async (req, res) => {
   }
 };
 
-module.exports = {createTask,getTasks}
+
+const updateTask = async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) return res.status(404).json({ message: 'Task not found' });
+    task.title = req.body.title || task.title;
+    task.description = req.body.description || task.description;
+    task.status = req.body.status || task.status;
+    task.updatedAt = Date.now();
+    const updatedTask = await task.save();
+    res.json(updatedTask);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+module.exports = {createTask,getTasks, updateTask};
