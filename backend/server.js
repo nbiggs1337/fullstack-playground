@@ -14,5 +14,9 @@ app.get('/', (req, res) => res.send('API is running'));
 const connectDB = require('./config/db');
 connectDB();
 
+
+const taskRoutes = require('./routes/tasks');
+app.use('/api/tasks', taskRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
