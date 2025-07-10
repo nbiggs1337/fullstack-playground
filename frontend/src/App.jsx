@@ -12,10 +12,19 @@ function App() {
       .catch((error) => console.error('Error fetching tasks:', error));
   }, []);
 
+  const addTask = async (task) => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/tasks', task);
+    setTasks([...tasks, response.data]);
+  } catch (error) {
+    console.error('Error adding task:', error);
+  }
+};
+
   return (
     <div>
       <h1>Task Manager</h1>
-      <TaskForm onSubmit={(task) => console.log(task)} />
+      <TaskForm onSubmit={addTask} />
       <TaskList tasks={tasks} onUpdate={() => {}} onDelete={() => {}} />
     </div>
   );
