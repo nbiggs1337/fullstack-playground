@@ -21,11 +21,22 @@ function App() {
   }
 };
 
+const updateTask = async (id, updatedTask) => {
+  try {
+    const response = await axios.put(`http://localhost:5000/api/tasks/${id}`, updatedTask);
+    setTasks(tasks.map((task) => (task._id === id ? response.data : task)));
+  } catch (error) {
+    console.error('Error updating task:', error);
+  }
+};
+
+
+
   return (
     <div>
       <h1>Task Manager</h1>
       <TaskForm onSubmit={addTask} />
-      <TaskList tasks={tasks} onUpdate={() => {}} onDelete={() => {}} />
+      <TaskList tasks={tasks} onUpdate={updateTask} onDelete={() => {}} />
     </div>
   );
 }
