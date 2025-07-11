@@ -7,14 +7,14 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tasks')
+    axios.get('http://localhost:8080/api/tasks')
       .then((response) => setTasks(response.data))
       .catch((error) => console.error('Error fetching tasks:', error));
   }, []);
 
   const addTask = async (task) => {
   try {
-    const response = await axios.post('http://localhost:5000/api/tasks', task);
+    const response = await axios.post('http://localhost:8080/api/tasks', task);
     setTasks([...tasks, response.data]);
   } catch (error) {
     console.error('Error adding task:', error);
